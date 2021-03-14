@@ -10,7 +10,7 @@ port = process.env.PORT || 3000;
 io.on('connection', socket=>{
     console.log('A user Connected')
 
-    socket.on('joinRoom',({username,room})=>{
+    socket.on('joinRoom',({userID,roomID})=>{
 socket.join(room);
 console.log(`${username} joined the conversation/room ${room}`);
     })
