@@ -12,7 +12,7 @@ io.on('connection', socket => {
 
     socket.on('joinRoom', ({userID, roomID}) => {
         socket.join(roomID);
-        console.log(`${username} joined the conversation/room ${roomID}`);
+        console.log(`${userID} joined the conversation/room ${roomID}`);
     })
 
     socket.on('chatMessage', message => {
@@ -21,7 +21,7 @@ io.on('connection', socket => {
     })
     socket.on('disconnect', () => {
 
-        console.log(socket.id)
+        console.log(socket.id , ' has disconnected')
         socket.emit('message', socket.id + ' has left the chat')
 
     })
