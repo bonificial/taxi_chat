@@ -11,8 +11,8 @@ io.on('connection', socket => {
     console.log('A user Connected')
 
     socket.on('joinRoom', ({userID, roomID}) => {
-        socket.join(room);
-        console.log(`${username} joined the conversation/room ${room}`);
+        socket.join(roomID);
+        console.log(`${username} joined the conversation/room ${roomID}`);
     })
 
     socket.on('chatMessage', message => {
