@@ -8,7 +8,7 @@ const server = http.createServer(app);
 const io = socketio(server);
 port = process.env.PORT || 3000;
 io.on('connection', socket => {
-    console.log('A user Connected')
+    console.log(socket.id, ' has   Connected')
 
     socket.on('joinRoom', ({userID, roomID}) => {
         socket.join(roomID);
