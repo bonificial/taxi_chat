@@ -7,26 +7,26 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 port = process.env.PORT || 3000;
-io.on('connection', socket=>{
+io.on('connection', socket => {
     console.log('A user Connected')
 
-    socket.on('joinRoom',({userID,roomID})=>{
-socket.join(room);
-console.log(`${username} joined the conversation/room ${room}`);
+    socket.on('joinRoom', ({userID, roomID}) => {
+        socket.join(room);
+        console.log(`${username} joined the conversation/room ${room}`);
     })
 
-    socket.on('chatMessage', message=>{
+    socket.on('chatMessage', message => {
         console.log(`${message.username} sent a new message ${message.message.text}`);
         io.emit('chatMessageSrESPONSE', message)
     })
-    socket.on('disconnect', ()=>{
+    socket.on('disconnect', () => {
 
         console.log(socket.id)
-       socket.emit('message', socket.id + ' has left the chat')
+        socket.emit('message', socket.id + ' has left the chat')
 
     })
 })
-server.listen(port,()=>{
+server.listen(port, () => {
     console.log('Server Running', port)
 })
 
