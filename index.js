@@ -9,8 +9,14 @@ const io = socketio(server);
 port = process.env.PORT || 3000;
 io.on('connection', socket=>{
     console.log('A user Connected')
+
+    socket.on('joinRoom',({username,room})=>{
+socket.join(room);
+console.log(`${username} joined the conversation/room ${room}`);
+    })
+
     socket.on('chatMessage', message=>{
-        console.log(message)
+        console.log(`${message.username} sent a new message ${message.message.text}`);
         io.emit('chatMessageSrESPONSE', message)
     })
     socket.on('disconnect', ()=>{
