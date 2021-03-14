@@ -13,6 +13,12 @@ io.on('connection', socket=>{
         console.log(message)
         io.emit('chatMessageSrESPONSE', message)
     })
+    socket.on('disconnect', ()=>{
+
+        console.log(socket.id)
+       socket.emit('message', socket.id + ' has left the chat')
+
+    })
 })
 server.listen(port,()=>{
     console.log('Server Running', port)
