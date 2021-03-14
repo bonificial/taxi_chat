@@ -17,7 +17,7 @@ io.on('connection', socket => {
 
     socket.on('chatMessage', message => {
         console.log(`${message.username} sent a new message ${message.message.text}`);
-        io.emit('chatMessageSrESPONSE', message)
+        io.emit('chatMessageResponse', 'responding')
     })
     socket.on('disconnect', () => {
 
