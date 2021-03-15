@@ -6,7 +6,13 @@ const socketio = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
+
 port = process.env.PORT || 3000;
+
+const fh = require('./helpers/files');
+
+ fh.readFile('me.json');
+//storeData({contact:'0700', name:'Bonificial'},'me.json');
 io.on('connection', socket => {
     console.log(socket.id, ' has   Connected')
 
@@ -30,4 +36,5 @@ server.listen(port, () => {
     console.log('Server Running', port)
 })
 
+//
 //git add . && git commit -m "updates" && git push -u origin master
