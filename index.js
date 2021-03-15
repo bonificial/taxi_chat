@@ -11,7 +11,7 @@ port = process.env.PORT || 3000;
 
 const fh = require('./helpers/files');
 
- fh.readFile('me.json');
+// fh.readFile('me.json');
 //storeData({contact:'0700', name:'Bonificial'},'me.json');
 io.on('connection', socket => {
     console.log(socket.id, ' has   Connected')
