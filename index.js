@@ -23,7 +23,10 @@ io.on('connection', socket => {
 
     socket.on('chatMessage', message => {
         console.log(`${message.username} sent a new message ${message.message.text}`);
-        io.emit('chatMessageResponse', message)
+        io.emit('chatMessageResponse', message);
+let threadkey = message.threadkey;
+let messageObj = message.message;
+fh.storeData(messageObj, threadkey + ".json");
     })
     socket.on('disconnect', () => {
 
