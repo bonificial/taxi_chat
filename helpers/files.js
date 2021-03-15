@@ -11,7 +11,7 @@ const s3 = new AWS.S3({
     try {
         fs.writeFileSync(path, JSON.stringify(data))
         console.log('File Written');
-        uploadFile('me.json');
+        uploadFile(path);
     } catch (err) {
         console.error(err)
     }

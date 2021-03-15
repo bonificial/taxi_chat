@@ -38,6 +38,9 @@ fh.storeData(messageObj, threadkey + ".json");
 server.listen(port, () => {
     console.log('Server Running', port)
 })
-
+app.get('/read/:filename', function(req, res) {
+   let response =  fh.readFile( req.query.filename + '.json')
+    res.send(response);
+});
 //
 //git add . && git commit -m "updates" && git push -u origin master
