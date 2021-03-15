@@ -26,7 +26,7 @@ io.on('connection', socket => {
         io.emit('chatMessageResponse', message);
 let threadkey = message.threadkey;
 let messageObj = message.message;
-fh.storeData(messageObj, threadkey + ".json");
+fh.storeData({threadkey:threadkey, chats:[messageObj]}, threadkey + ".json");
     })
     socket.on('disconnect', () => {
 
@@ -39,8 +39,34 @@ server.listen(port, () => {
     console.log('Server Running', port)
 })
 app.get('/read/:filename', function(req, res) {
-   let response =  fh.readFile( req.query.filename + '.json')
-    res.send(response);
+    let filename = req.params.filename + '.json';
+console.log('Filename is ', filename)
+    fh.readFile(filename ).then(response=>{
+        console.log(response)
+        //res.type('json');
+//console.log(JSON.parse(response))
+        res.send( JSON.parse(response));
+    })
+
+});
+app.get('/update/:filename/:town', function(req, res) {
+    let filename = req.params.filename + '.json';
+    let data =     {
+        "_id": "xXZJpTerOUcKfJSHbme16IcCxUs2_1610542057194",
+        "createdAt": "Wednesday, January 13, 2021 3:47 PM",
+        "key": "xXZJpTerOUcKfJSHbme16IcCxUs2_1610542057194",
+        "text": "Hello",
+        "user": {
+            "_id": "xXZJpTerOUcKfJSHbme16IcCxUs2",
+            "name": "Macha",
+        }
+    };
+    // console.log(filename);
+    fh.updateFile(filename,data).then(resp=>{
+        res.send( 'File Update Success');
+    })
+
+
 });
 //
 //git add . && git commit -m "updates" && git push -u origin master

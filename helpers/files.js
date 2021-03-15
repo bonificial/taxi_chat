@@ -42,7 +42,7 @@ const s3 = new AWS.S3({
                 reject(console.log(err, err.stack));
             // an error occurred
             else {
-                console.log(data.Body.toString('utf-8'));
+                //console.log(data.Body.toString('utf-8'));
                 resolve( data.Body.toString('utf-8'));
             }
             // successful response
@@ -50,12 +50,16 @@ const s3 = new AWS.S3({
     }))
 
 }
- const updateFile=  async  (filekey)=>{
-    await readFile(filekey).then(res=>{
+ const updateFile=  async  (filekey, data)=>{
+   return  await readFile(filekey).then(async res=>{
         let currData = JSON.parse(res);
-        console.log(currData);
-        currData.city = "Nanyuki";
-        storeData(currData, 'me.json');
+       // let updatedData = [...currData, ...data];
+console.log(JSON.parse(currData))
+       console.log(Object.entries(data))
+
+      //  console.log('Combined Data for Updation', currData, data, updatedData);
+
+       //  storeData(updatedData, filekey);
 
     })
 }
