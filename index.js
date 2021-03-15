@@ -26,7 +26,13 @@ io.on('connection', socket => {
         io.emit('chatMessageResponse', message);
 let threadkey = message.threadkey;
 let messageObj = message.message;
-fh.storeData({threadkey:threadkey, chats:[messageObj]}, threadkey + ".json");
+let filename = threadkey + ".json";
+if(fh.FileExistsOnS3(filename)){
+    fh.updateFile(filename,data);
+}else{
+    fh.storeData({threadkey:threadkey, chats:[messageObj]}, threadkey + ".json");
+}
+
     })
     socket.on('disconnect', () => {
 

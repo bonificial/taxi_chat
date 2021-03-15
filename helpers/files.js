@@ -52,16 +52,28 @@ const s3 = new AWS.S3({
 }
  const updateFile=  async  (filekey, data)=>{
    return  await readFile(filekey).then(async res=>{
-        let currData = JSON.parse(res);
+        let allChatData = JSON.parse(res);
        // let updatedData = [...currData, ...data];
-console.log(JSON.parse(currData))
-       console.log(Object.entries(data))
-
-      //  console.log('Combined Data for Updation', currData, data, updatedData);
-
-       //  storeData(updatedData, filekey);
+       let currentMessages = allChatData.chats;
+       let updatedChats= [ ...currentMessages, data];
+allChatData.chats = updatedChats;
+       storeData(allChatData, filekey);
 
     })
 }
+const FileExistsOnS3 = async (filename)=>{
+    const params = {
+        Bucket: BUCKET_NAME,
+        Key: filename //if any sub folder-> path/of/the/folder.ext
+    }
+    try {
+        await s3.headObject(params).promise()
+        console.log("File Found in S3")
+        return true;
+    } catch (err) {
+        console.log("File not Found ERROR : " + err.code)
+        return false;
+    }
+}
 
-module.exports = {storeData, uploadFile,readFile,updateFile,s3};
+module.exports = {storeData, uploadFile,readFile,updateFile,s3,FileExistsOnS3};
