@@ -2,7 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
-
+const fb = require('./helpers/firebase');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -10,6 +10,7 @@ const io = socketio(server);
 port = process.env.PORT || 3000;
 
 const fh = require('./helpers/files');
+fb.initializeFirebaseDB();
 
 // fh.readFile('me.json');
 //storeData({contact:'0700', name:'Bonificial'},'me.json');
