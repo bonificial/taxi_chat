@@ -20,7 +20,7 @@ io.on('connection', socket => {
     socket.on('joinRoom', ({userID, roomID}) => {
         socket.join(roomID);
         console.log(`${userID} joined the conversation/room ${roomID}`);
-        socket.to(roomID).emit('message', `${userID} joined the conversation/room ${roomID}`)
+        socket.in(roomID).emit('message', `${userID} joined the conversation/room ${roomID}`)
     })
 
     socket.on('chatMessage', message => {
