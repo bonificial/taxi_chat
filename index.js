@@ -28,7 +28,7 @@ io.on('connection', socket => {
         console.log('message in', message)
         console.log(`${message.user} sent a new message ${message.chatMessage}`);
         io.in(message.roomID).emit('message', `${message.user} joined the conversation/room ${message.roomID}`)
-
+console.log( `${message.user} joined the conversation/room ${message.roomID}`);
         let threadkey = message.threadkey;
         let messageObj = message.message;
         let filename = threadkey + ".json";
