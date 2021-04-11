@@ -25,6 +25,7 @@ io.on('connection', socket => {
     })
 
     socket.on('chatMessage', message => {
+        console.log('message in', message)
         console.log(`${message.user} sent a new message ${message.chatMessage}`);
         io.emit('chatMessageResponse', message);
         let threadkey = message.threadkey;
