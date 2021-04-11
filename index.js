@@ -18,14 +18,15 @@ io.on('connection', socket => {
     console.log(socket.id, ' has   Connected');
 
 
-    socket.on('joinRoom', ({user, roomID}) => {
-        socket.join(roomID);
-        console.log(`${user} joined the conversation/room ${roomID}`);
-        io.in(roomID).emit('message', `${user} joined the conversation/room ${roomID}`)
+    socket.on('joinRoom', (message) => {
+        console.log('message in JR', message)
+        socket.join(message.roomID);
+        console.log(`${message.user} joined the conversation/room ${message.roomID}`);
+        io.in(message.roomID).emit('message', `${message.user} joined the conversation/room ${message.roomID}`)
     })
 
     socket.on('chatMessage', message => {
-        console.log('message in', message)
+        console.log('message in CM', message)
         console.log(`${message.user} sent a new message ${message.chatMessage}`);
         io.in(message.roomID).emit('message', `${message.user} joined the conversation/room ${message.roomID}`)
 
